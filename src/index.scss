@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+body{
+
+    background: linear-gradient(67deg, white 0%, #384650 100%);
+    font-family: 'Poppins', sans-serif;
+    color: #292929;
+
+    h1{
+        font-weight: 900;
+        font-size: 40px;
+        text-align: center;
+    }
+    .today{
+        gap: 55px;
+    }
+    .forecast{
+        gap: 61px;
+        margin-top: 49px;
+        margin-bottom: 44px;
+    }
+    .days_forecast{
+        width: 414px;
+        height: 366px;
+        background-color: #D9D9D9;
+        border-radius: 30px;
+        box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.7);
+    }
+    .hourly_forecast{
+        width: 870px;
+        height: 366px;
+        background-color: #D9D9D9;
+        border-radius: 30px;
+        box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.7);
+        
+    }
+    .dayTitle{
+        font-size: 32px;
+        line-height: 32px;
+        margin-bottom: 7px;
+    }
+    .day{
+        gap:43px;
+        margin-bottom: 0;
+    }
+    .dayTemp{
+        font-size: 24px;
+        line-height: 10px;
+        font-weight: 700;
+    }
+    .dayDate{
+        font-size: 20px;
+        font-weight: 700;
+    }
+    .hour{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 130px;
+        height: 270px;
+        border-radius: 40px;
+        background: linear-gradient(180deg, #F88508 0%, rgba(246, 250, 217, 0) 100%);
+    }
+    .Hours{
+        gap: 15px;
+    }
+}

@@ -1,23 +1,88 @@
-import logo from './logo.svg';
-import './App.css';
-
+import './index.scss'
+import React from 'react';
+import Date from './Components/Date';
+import WeatherDay from './Components/WeatherDay';
+import Day from './Components/Day';
+import Hour from './Components/Hour';
+import axios from 'axios';
 function App() {
+  const [weather, setWeather] = React.useState(null);
+  const [dayData, setDayData] = React.useState();
+  const [curData, setCurData] = React.useState();
+  const weekdays = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
+  React.useEffect(() => {
+    const fetchWeatherData = async () => {
+      try {
+        const response = await axios.get('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Saint-Petersburg?unitGroup=us&key=VZRVSE8BSD68DMP7JHKLUAUMS&contentType=json');
+        console.log(response.data);
+        const daysForecat = response.data.days.slice(0, 5).map(day => ({
+          temp: day.temp,
+          snow: day.snow,
+          cloudcover: day.cloudcover,
+          date: day.datetime
+      }));
+        setDayData(daysForecat);
+        const currentWeather = {
+          temp: response.data.currentConditions.temp,
+          feelslike: response.data.currentConditions.feelslike,
+          humidity: response.data.currentConditions.humidity,
+          snow: response.data.currentConditions.snow,
+          cloudcover: response.data.currentConditions.cloudcover,
+          wind: response.data.currentConditions.windspeed,
+          pressure: response.data.currentConditions.pressure,
+          uv: response.data.currentConditions.uvindex,
+          icon: response.data.currentConditions.icon
+        };
+        setCurData(currentWeather);
+      }
+      catch (error) {
+        console.error('Error fetching weather data:', error);
+      }
+    };
+    console.log(curData);
+    fetchWeatherData();
+
+    const interval = setInterval(() => {
+      fetchWeatherData();
+    }, 1 * 60 * 60 * 1000); // Update every 24 hours
+
+    return () => clearInterval(interval); // Cleanup on component unmount
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Погода в Санкт-Петербурге</h1>
+      <div className='weather d-flex justify-center flex-column'> 
+        <div className='today d-flex flex-row justify-center'>
+          <Date/>
+          <WeatherDay/>
+        </div>
+        <div className='forecast d-flex flex-row justify-center'>
+          <div className='days_forecast'>
+            <h1 className='dayTitle'>Прогноз на 5 дней</h1>
+            {dayData && dayData.map((day, index) => (
+              <Day 
+              key = {index}
+              temp = {day.temp}
+              snow = {day.snow}
+              cloudcover = {day.cloudcover}
+              date = {day.date}
+              />
+              ))}
+            
+          </div>
+          <div className='hourly_forecast '>
+          <h1 className='dayTitle mb-20'>Прогноз по часам</h1>
+            <div className='Hours d-flex flex-row justify-center'>
+            <Hour/>
+            <Hour/>
+            <Hour/>
+            <Hour/>
+            <Hour/>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

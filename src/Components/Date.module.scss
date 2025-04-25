@@ -1,0 +1,27 @@
+.Date {
+    width: 510px;
+    height: 330px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #D9D9D9;
+    border-radius: 30px;
+    box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.7); /* Мягкая тень */
+    h1{
+        font-size: 96px;
+        font-weight: 700;
+        margin:0;
+    }
+    h3{
+        font-size: 36px;
+        font-weight: 700;
+        margin: 0;
+
+    }
+    h4{
+        font-size: 20px;
+        font-weight: 400;
+        margin: 0;
+    }
+}
