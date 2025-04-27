@@ -21,7 +21,7 @@ function Day({temp, date}){
     return (
         <div className="day d-flex flex-row justify-center align-center">
             <img width={60} src = "/img/sunny-cloudy.png"/>
-            <p className="dayTemp">{(((temp-32)*5)/9).toFixed(0)}°C</p>
+            <p className="dayTemp">{Math.round((temp - 32) * 5 / 9)}°C</p>
             <b className="dayDate">{date}</b>
         </div>
     );

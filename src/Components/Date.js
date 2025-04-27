@@ -15,7 +15,7 @@ function DateTime() {
             setDate(newDate);
             setTime(newDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
             setDay(newDate.toLocaleDateString('ru-RU', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }));
-        }, 60000);
+        }, 1000);
 
         return () => clearInterval(interval);
     }, []);

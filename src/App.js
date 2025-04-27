@@ -9,6 +9,7 @@ function App() {
   const [weather, setWeather] = React.useState(null);
   const [dayData, setDayData] = React.useState();
   const [curData, setCurData] = React.useState();
+  const [hourData, setHourData] = React.useState();
   const weekdays = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
   React.useEffect(() => {
     const fetchWeatherData = async () => {
@@ -31,9 +32,19 @@ function App() {
           wind: response.data.currentConditions.windspeed,
           pressure: response.data.currentConditions.pressure,
           uv: response.data.currentConditions.uvindex,
-          icon: response.data.currentConditions.icon
+          icon: response.data.currentConditions.icon,
+          sunrise: response.data.currentConditions.sunrise,
+          sunset: response.data.currentConditions.sunset
         };
         setCurData(currentWeather);
+        const hourData = response.data.days[0].hours.filter((_, index) => index % 3 ===0).map(hour => ({
+          temp: hour.temp,
+          snow: hour.snow,
+          cloudcover: hour.cloudcover,
+          date: hour.datetime
+        }));
+        setHourData(hourData);
+        console.log(hourData);
       }
       catch (error) {
         console.error('Error fetching weather data:', error);
@@ -55,7 +66,22 @@ function App() {
       <div className='weather d-flex justify-center flex-column'> 
         <div className='today d-flex flex-row justify-center'>
           <Date/>
-          <WeatherDay/>
+          
+          {curData && 
+            <WeatherDay 
+              temp = {curData.temp} 
+              feelslike = {curData.feelslike} 
+              humidity = {curData.humidity} 
+              snow = {curData.snow} 
+              cloudcover = {curData.cloudcover} 
+              wind = {curData.wind} 
+              pressure = {curData.pressure}
+              uv = {curData.uv}
+              icon = {curData.icon}
+              sunrise = {curData.sunrise}
+              sunset = {curData.sunset}
+            />
+          }
         </div>
         <div className='forecast d-flex flex-row justify-center'>
           <div className='days_forecast'>
@@ -69,7 +95,6 @@ function App() {
               date = {day.date}
               />
               ))}
-            
           </div>
           <div className='hourly_forecast '>
           <h1 className='dayTitle mb-20'>Прогноз по часам</h1>
