@@ -11,6 +11,21 @@ body{
         font-size: 40px;
         text-align: center;
     }
+    .title{
+        gap: 150px;
+        margin-right: 80px;
+    }
+    .mainTitle{
+        font-size: 40px;
+        line-height: 40px;
+        margin-top: 45px;
+        padding: 0;
+    }
+    .logo{
+        margin: 0;
+        padding: 0;
+
+    }
     .today{
         gap: 55px;
     }
@@ -40,7 +55,7 @@ body{
         margin-bottom: 7px;
     }
     .day{
-        gap:43px;
+        gap:65px;
         margin-bottom: 0;
     }
     .dayTemp{
@@ -59,7 +74,14 @@ body{
         width: 130px;
         height: 270px;
         border-radius: 40px;
-        background: linear-gradient(180deg, #F88508 0%, rgba(246, 250, 217, 0) 100%);
+        &.Day{
+            background: linear-gradient(180deg, #F88508 0%, rgba(246, 250, 217, 0) 100%)
+        }
+        &.night{
+            background: linear-gradient(155deg, #443D64 0%, rgba(101, 130, 198, 0) 100%)
+        }
+        
+        
     }
     .Hours{
         gap: 15px;

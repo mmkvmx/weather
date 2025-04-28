@@ -19,6 +19,7 @@ function App() {
         const daysForecat = response.data.days.slice(0, 5).map(day => ({
           temp: day.temp,
           snow: day.snow,
+          icon: day.icon,
           cloudcover: day.cloudcover,
           date: day.datetime
       }));
@@ -37,14 +38,16 @@ function App() {
           sunset: response.data.currentConditions.sunset
         };
         setCurData(currentWeather);
-        const hourData = response.data.days[0].hours.filter((_, index) => index % 3 ===0).map(hour => ({
-          temp: hour.temp,
-          snow: hour.snow,
-          cloudcover: hour.cloudcover,
-          date: hour.datetime
-        }));
-        setHourData(hourData);
-        console.log(hourData);
+        const hourForecart = response.data.days[0].hours
+          .filter(hour => ['12:00:00', '15:00:00', '18:00:00', '21:00:00', '23:00:00'].includes(hour.datetime)) // Оставляем только нужные часы
+          .map(hour => ({
+            temp: hour.temp,
+            snow: hour.snow,
+            icon: hour.icon,
+            cloudcover: hour.cloudcover,
+            date: hour.datetime
+          }));
+        setHourData(hourForecart);
       }
       catch (error) {
         console.error('Error fetching weather data:', error);
@@ -55,14 +58,17 @@ function App() {
 
     const interval = setInterval(() => {
       fetchWeatherData();
-    }, 1 * 60 * 60 * 1000); // Update every 24 hours
+    }, 1 * 60 * 60 * 1000); // Обновление данных каждый час
 
     return () => clearInterval(interval); // Cleanup on component unmount
   }, []);
 
   return (
     <div className="App">
-      <h1>Погода в Санкт-Петербурге</h1>
+      <div className='title d-flex flex-row justify-center'>
+      <img height={120}className='Logo' src = '/img/citytel.png' alt = 'Гостиница Октябрьская'/>
+      <h1 className='mainTitle'>Погода в Санкт-Петербурге</h1>
+      </div>
       <div className='weather d-flex justify-center flex-column'> 
         <div className='today d-flex flex-row justify-center'>
           <Date/>
@@ -92,6 +98,7 @@ function App() {
               temp = {day.temp}
               snow = {day.snow}
               cloudcover = {day.cloudcover}
+              icon = {day.icon}
               date = {day.date}
               />
               ))}
@@ -99,11 +106,17 @@ function App() {
           <div className='hourly_forecast '>
           <h1 className='dayTitle mb-20'>Прогноз по часам</h1>
             <div className='Hours d-flex flex-row justify-center'>
-            <Hour/>
-            <Hour/>
-            <Hour/>
-            <Hour/>
-            <Hour/>
+              {hourData && hourData.map((hour, index) => (
+                <Hour 
+                key = {index}
+                temp = {hour.temp}
+                snow = {hour.snow}
+                cloudcover = {hour.cloudcover}
+                date = {hour.date}
+                icon = {hour.icon}
+                />
+              ))}
+            
             </div>
           </div>
         </div>

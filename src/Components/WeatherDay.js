@@ -1,14 +1,31 @@
 import styles from './WeatherDay.module.scss';
 function WeatherDay({temp, feelslike, humidity, snow, cloudcover, wind, pressure, uv, icon, sunrise, sunset}) {// Преобразование из Фаренгейта в Цельсий
     const weatherIcons = {
-        sunny: '/img/sunny.png',
+        'clear-day': '/img/sunny.svg',
         cloudy: '/img/cloudy.svg',
-        rainy: '/img/rainy.png',
-        snowy: '/img/snowy.png',
-        stormy: '/img/stormy.png',
+        'partly-cloudy-day': '/img/partlyCloudy.svg',
+        rain: '/img/rain.svg',
+        snow: '/img/snow.svg',
+        fog: '/img/fog.svg',
+        'partly-cloudy-night': '/img/partlyCloudy.svg',
+        wind: '/img/fog.svg',
+        'clear-night': '/img/clearNight.svg'
         // Добавьте другие значения по необходимости
     };
     const weatherIconSrc = weatherIcons[icon] || '/img/unknown.png';
+    const weatherTitle = {
+        'clear-day': 'Солнечно',
+        cloudy: 'Облачно',
+        'partly-cloudy-day': 'Переменная облачность',
+        rain: 'Дождь',
+        snow: 'Снег',
+        fog: 'Туман',
+        'partly-cloudy-night': 'Переменная облачность',
+        wind: 'Ветер',
+        'clear-night': 'Ясно'
+        // Добавьте другие значения по необходимости
+    }
+    const weatherTitleSrc = weatherTitle[icon] || 'Неизвестно';
     return (
         <div className={styles.weatherDay}>
             <div className={styles.temp}>
@@ -19,14 +36,14 @@ function WeatherDay({temp, feelslike, humidity, snow, cloudcover, wind, pressure
                         <img width={48} height={48} src="/img/sunrise.png" alt="Восход" />
                         <div className='d-flex flex-column justify-center ml-15'>
                             <b>Восход</b>
-                            <p>{sunrise}</p>
+                            <p>{sunrise.split(':').slice(0, 2).join(':')}</p>
                         </div>
                     </div>
                     <div className='d-flex flex-row mt-15'>
                         <img width={48} height={48} src="/img/sunset.png" alt="Закат" />
                         <div className='d-flex flex-column justify-center ml-15'>
                             <b>Закат</b>
-                            <p>{sunset}</p>
+                            <p>{sunset.split(':').slice(0, 2).join(':')}</p>
                         </div>
                     </div>
                 </div>
@@ -35,7 +52,7 @@ function WeatherDay({temp, feelslike, humidity, snow, cloudcover, wind, pressure
             <div className={styles.centerBlock}>
                 <img height={200} width={200} src={weatherIconSrc} alt="Погода" />
                 {console.log(icon)}
-                <b className='mt-30'>Ясно</b>
+                <h3 className='mt-30'>{weatherTitleSrc}</h3>
             </div>
             <div className={styles.table}>
                 <div className={styles.row}>
