@@ -33,14 +33,14 @@ function WeatherDay({temp, feelslike, humidity, snow, cloudcover, wind, pressure
                 <h4 className='ml-15'>Ощущается как {Math.round((feelslike - 32) * 5 / 9)}°C</h4>
                 <div className='mt-30'>
                     <div className='d-flex flex-row'>
-                        <img width={48} height={48} src={`/img/sunrise.png`} alt="Восход" />
+                        <img width={48} height={48} src={`${process.env.PUBLIC_URL}/img/sunrise.png`} alt="Восход" />
                         <div className='d-flex flex-column justify-center ml-15'>
                             <b>Восход</b>
                             <p>{sunrise.split(':').slice(0, 2).join(':')}</p>
                         </div>
                     </div>
                     <div className='d-flex flex-row mt-15'>
-                        <img width={48} height={48} src={`/img/sunset.png`} alt="Закат" />
+                        <img width={48} height={48} src={`${process.env.PUBLIC_URL}/img/sunset.png`} alt="Закат" />
                         <div className='d-flex flex-column justify-center ml-15'>
                             <b>Закат</b>
                             <p>{sunset.split(':').slice(0, 2).join(':')}</p>
