@@ -66,7 +66,7 @@ function App() {
   return (
     <div className="App">
       <div className='title d-flex flex-row justify-center'>
-      <img height={120}className='Logo' src = '/img/citytel.png' alt = 'Гостиница Октябрьская'/>
+      <img height={120}className='Logo' src = {`${process.env.PUBLIC_URL}/img/citytel.png`} alt = 'Гостиница Октябрьская'/>
       <h1 className='mainTitle'>Погода в Санкт-Петербурге</h1>
       </div>
       <div className='weather d-flex justify-center flex-column'> 

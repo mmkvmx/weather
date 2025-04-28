@@ -21,22 +21,21 @@ function Day({temp, date, icon}){
     // Получаем день недели
     
     const weatherIcons = {
-        'clear-day': '/img/sunny.svg',
-        cloudy: '/img/cloudy.svg',
-        'partly-cloudy-day': '/img/partlyCloudy.svg',
-        rain: '/img/rain.svg',
-        snow: '/img/snow.svg',
-        fog: '/img/fog.svg',
-        'partly-cloudy-night': '/img/partlyCloudy.svg',
-        wind: '/img/wind.svg',
-        'clear-night': '/img/clearNight.svg'
+        'clear-day': `${process.env.PUBLIC_URL}/img/sunny.svg`,
+        cloudy: `${process.env.PUBLIC_URL}/img/cloudy.svg`,
+        'partly-cloudy-day': `${process.env.PUBLIC_URL}/img/partlyCloudy.svg`,
+        rain: `${process.env.PUBLIC_URL}/img/rain.svg`,
+        snow: `${process.env.PUBLIC_URL}/img/snow.svg`,
+        fog: `${process.env.PUBLIC_URL}/img/fog.svg`,
+        'partly-cloudy-night': `${process.env.PUBLIC_URL}/img/partlyCloudy.svg`,
+        wind: `${process.env.PUBLIC_URL}/img/wind.svg`,
+        'clear-night': `${process.env.PUBLIC_URL}/img/clearNight.svg`
         // Добавьте другие значения по необходимости
     };
     const weatherIconSrc = weatherIcons[icon] || '/img/unknown.png';
     return (
             <div className="day d-flex flex-row justify-center align-center ">
                 <img width={60} src = {weatherIconSrc} alt={`${icon}`}/>
-                {console.log(icon)}
                 <p className="dayTemp">{Math.round((temp - 32) * 5 / 9)}°C</p>
                 <b className="dayDate">{date}</b>
             </div>
