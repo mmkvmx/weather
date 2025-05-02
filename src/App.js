@@ -17,7 +17,7 @@ function App() {
         const response = await axios.get('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Saint-Petersburg?unitGroup=us&key=VZRVSE8BSD68DMP7JHKLUAUMS&contentType=json');
         console.log(response.data);
         const daysForecat = response.data.days.slice(0, 5).map(day => ({
-          temp: day.temp,
+          temp: day.tempmax,
           snow: day.snow,
           icon: day.icon,
           cloudcover: day.cloudcover,
